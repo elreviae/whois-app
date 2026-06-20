@@ -1,17 +1,15 @@
 <?php
-// PHP 8.2 WHOIS Lookup App - Using https://ip-api.com/ free API
+// PHP - WHOIS Lookup App - Using https://ip-api.com/ free API
 // https://ip-api.com/docs/
 // Using PHP - CURL library
 // Using leaflet JS map - https://leafletjs.com/reference.html
 
 // Maxime DES TOUCHES - https://github.com/elreviae ------------
 
-
 // Function to validate input type
 function validateInput(string $input): ?string {
     $input = trim($input);
     if (empty($input)) return 'myIP';
-
     // Check if it's an IPv4
     if (filter_var($input, FILTER_VALIDATE_IP, FILTER_FLAG_IPV4)) return 'ipv4';
     // Check if it's an IPv6
@@ -30,11 +28,11 @@ function fetchWhoisData(string $query): ?array {
     $ch = curl_init('http://ip-api.com/json/'.$query."?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
-    curl_close($ch);
+    $ch = null; // update for deprecated "curl_close($ch);"
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $curlError = curl_error($ch);
-    curl_close($ch);
+     $ch = null; // update for deprecated "curl_close($ch);"
 
     if ($curlError) {
         return ['error' => 'cURL Error: ' . $curlError];
