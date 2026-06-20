@@ -28,11 +28,11 @@ function fetchWhoisData(string $query): ?array {
     $ch = curl_init('http://ip-api.com/json/'.$query."?fields=status,message,continent,continentCode,country,countryCode,region,regionName,city,district,zip,lat,lon,timezone,offset,currency,isp,org,as,asname,reverse,mobile,proxy,hosting,query");
     curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
     curl_setopt($ch, CURLOPT_HEADER, false);
-    $ch = null; // update for deprecated "curl_close($ch);"
+    // $ch = null; // update for deprecated "curl_close($ch);"
     $response = curl_exec($ch);
     $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
     $curlError = curl_error($ch);
-     $ch = null; // update for deprecated "curl_close($ch);"
+    // $ch = null; // update for deprecated "curl_close($ch);"
 
     if ($curlError) {
         return ['error' => 'cURL Error: ' . $curlError];
